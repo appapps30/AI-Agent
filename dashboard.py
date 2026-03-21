@@ -109,9 +109,14 @@ with tab_agent:
     # Options
     col1, col2 = st.columns(2)
     with col1:
-        headless = st.checkbox("Headless mode (no browser window)", value=False)
+        browser_choice = st.selectbox(
+            "🌐 Browser",
+            ["chromium", "chrome", "edge", "safari"],
+            index=0,
+            help="Select which browser to use for testing"
+        )
     with col2:
-        pass
+        headless = st.checkbox("Headless mode (no browser window)", value=False)
 
     # Run / Stop buttons
     col_start, col_stop = st.columns(2)
@@ -123,7 +128,8 @@ with tab_agent:
             st.session_state.agent_running = True
             st.session_state.agent_queue = queue.Queue()
 
-            cmd = ["python3", AGENT_SCRIPT, "--url", test_url]
+            cmd = ["python3", AGENT_SCRIPT, "--url", test_url,
+                   "--browser", browser_choice]
 
             if instructions.strip():
                 cmd.extend(["--task", instructions.strip()])

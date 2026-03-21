@@ -3,30 +3,25 @@ Autonomous E2E Testing Agent
 ==============================
 Enter any URL + instructions → AI opens browser, tests everything, self-heals on failures.
 
-No pre-written test scripts needed. The AI:
-  - Sees the page (vision)
-  - Understands your instructions
-  - Decides what to do
-  - Self-heals when things break
-  - Explores beyond your instructions
-  - Reports structured results
+Supports: Safari (WebKit), Chrome, Edge, Chromium
 
 Usage:
     python agent.py --url https://google.com --task "Search for AI testing tools"
-    python agent.py --url https://appypie.com --task "Create an app for a restaurant"
+    python agent.py --url https://google.com --browser safari
+    python agent.py --url https://google.com --browser chrome
     python agent.py  # launches interactive mode
 """
 
 import argparse
 import asyncio
+import base64
 import json
 import os
 import time
 from datetime import datetime
 
 from dotenv import load_dotenv
-from browser_use import Agent, BrowserProfile
-from browser_use.llm import ChatOpenAI
+from openai import OpenAI
 
 load_dotenv()
 
@@ -39,12 +34,10 @@ os.makedirs(REPORT_DIR, exist_ok=True)
 
 def build_task(url: str, instructions: str) -> str:
     """Build the autonomous agent task from URL + user instructions."""
-
-    task = f"""You are a FULLY AUTONOMOUS E2E Testing AI Agent with SELF-HEALING capabilities.
+    return f"""You are a FULLY AUTONOMOUS E2E Testing AI Agent with SELF-HEALING capabilities.
 
 ## TARGET
 - URL: {url}
-- Start by navigating to: {url}
 
 ## USER INSTRUCTIONS
 {instructions}
@@ -52,87 +45,33 @@ def build_task(url: str, instructions: str) -> str:
 ## YOUR AUTONOMOUS TESTING PROCESS
 
 ### PHASE 1 — Execute User Instructions
-Follow the user's instructions above step by step:
-- Navigate to the URL first
-- Perform each action described
-- Verify each step worked before moving to the next
-- If a cookie/popup/banner appears at any time, dismiss it immediately
+Follow the user's instructions step by step.
 
-### PHASE 2 — Smart Page Analysis
-After completing user instructions, analyze the page:
-- Identify all interactive elements (buttons, links, forms, inputs)
-- Check if the page loaded correctly (no errors, no blank sections)
-- Verify all images loaded (no broken images)
-- Check navigation links work
-
-### PHASE 3 — Autonomous Exploration
-Go beyond the instructions and test:
-- Click top navigation links and verify pages load
-- If there's a form, test with empty submission (check validation)
-- If there's a search bar, try a search query
-- Test browser back/forward navigation
-- Look for any error messages or broken elements
+### PHASE 2 — Autonomous Exploration
+After completing instructions, explore:
+- Click navigation links and verify pages load
+- Test forms with empty submission (check validation)
+- Test search bars
+- Look for broken elements or errors
 
 ## SELF-HEALING RULES
-When something fails, DO NOT give up. Follow this recovery process:
-
-1. **Element not found?**
-   → Wait 3 seconds, page might still be loading
-   → Look for the element using your VISION (don't rely only on selectors)
-   → Try scrolling down — element might be below the fold
-   → Try clicking a similar element nearby
-
-2. **Page not loading?**
-   → Wait up to 15 seconds
-   → Try refreshing the page
-   → If still broken, note it and move to next step
-
-3. **Popup/modal blocking?**
-   → Look for X button, Close button, or "No thanks" link
-   → Try pressing Escape key
-   → Try clicking outside the popup
-
-4. **Form submission failed?**
-   → Check for validation error messages
-   → Fix the input and retry
-   → Try different input values
-
-5. **Redirect unexpected?**
-   → Note the new URL
-   → Adapt and continue testing on the new page
-   → Use browser back if needed to return
-
-6. **Element clickable but nothing happens?**
-   → Try double-click
-   → Try JavaScript click via evaluate
-   → Move on and note it as a potential bug
+1. Element not found? → Wait, scroll, try alternative selector
+2. Page not loading? → Wait 15s, refresh
+3. Popup blocking? → Find close/X button, press Escape
+4. Form failed? → Read error, fix input, retry
+5. Unexpected redirect? → Adapt and continue
 
 ## REPORT FORMAT
-When done, provide your report in EXACTLY this format:
-
+When done, give your final report:
 === TEST REPORT ===
 URL: {url}
-Date: [today's date]
-
 STEPS COMPLETED:
-- Step 1: [what you did] -> PASS/FAIL [details]
-- Step 2: [what you did] -> PASS/FAIL [details]
-(continue for all steps)
-
-SELF-HEALING ACTIONS:
-- [any recovery actions you took and what triggered them]
-
-AUTONOMOUS DISCOVERIES:
-- [things you found by exploring beyond instructions]
-
+- Step N: [what] -> PASS/FAIL
 BUGS FOUND:
-- [any bugs, errors, broken elements you discovered]
-
-OVERALL SCORE: [X/10]
-SUMMARY: [1-2 sentence summary]
+- [bugs]
+SCORE: [X/10]
 === END REPORT ===
 """
-    return task
 
 
 def save_report(url: str, result_data: dict):
@@ -147,22 +86,227 @@ def save_report(url: str, result_data: dict):
     return report_path
 
 
-async def run_test(url: str, instructions: str, headless: bool = False) -> dict:
-    """Run the autonomous E2E testing agent."""
+# ─── Safari Agent (Playwright WebKit + GPT-4o Vision) ────────────────────────
+
+async def run_safari_test(url: str, instructions: str, headless: bool = False) -> dict:
+    """Run test in Safari (WebKit) using Playwright + GPT-4o vision."""
+    from playwright.async_api import async_playwright
 
     print(f"\n{'='*60}")
     print(f"  AUTONOMOUS E2E TESTING AGENT")
-    print(f"  URL:  {url}")
-    print(f"  Time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f"  URL:     {url}")
+    print(f"  Browser: Safari (WebKit)")
+    print(f"  Time:    {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print(f"{'='*60}")
-    print(f"\nInstructions: {instructions[:200]}...")
 
-    # Build task
+    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+    task = build_task(url, instructions)
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    start_time = time.time()
+
+    result_data = {
+        "status": "unknown",
+        "duration_seconds": 0,
+        "final_report": "",
+        "actions": [],
+        "browser": "safari",
+        "instructions": instructions,
+    }
+
+    pw = await async_playwright().start()
+    browser = await pw.webkit.launch(headless=headless)
+    context = await browser.new_context(
+        viewport={"width": 1470, "height": 956},
+        device_scale_factor=2,
+    )
+    page = await context.new_page()
+
+    print(f"\nSafari (WebKit) browser opened!")
+    print(f"Navigating to {url}...")
+
+    await page.goto(url, wait_until="domcontentloaded", timeout=30000)
+    await page.wait_for_timeout(3000)
+
+    print("Page loaded. AI agent starting...\n")
+
+    chat_history = [
+        {"role": "system", "content": task},
+    ]
+
+    max_steps = 50
+    actions_taken = []
+
+    for step in range(1, max_steps + 1):
+        # Take screenshot
+        screenshot_path = os.path.join(SCREENSHOT_DIR, f"safari_{timestamp}_step{step}.png")
+        await page.screenshot(path=screenshot_path, full_page=False)
+
+        # Encode screenshot for vision
+        with open(screenshot_path, "rb") as f:
+            img_base64 = base64.b64encode(f.read()).decode("utf-8")
+
+        # Get page info
+        current_url = page.url
+        title = await page.title()
+
+        # Ask GPT-4o what to do next
+        chat_history.append({
+            "role": "user",
+            "content": [
+                {
+                    "type": "text",
+                    "text": f"Step {step}. Current URL: {current_url} | Title: {title}\n\nLook at the screenshot and decide the next action. Respond in JSON:\n{{\"action\": \"click|type|scroll|navigate|wait|done\", \"selector\": \"css selector\", \"value\": \"text to type or url\", \"reasoning\": \"why\"}}\n\nIf all testing is done, use action 'done' and put your full TEST REPORT in the 'value' field."
+                },
+                {
+                    "type": "image_url",
+                    "image_url": {"url": f"data:image/png;base64,{img_base64}", "detail": "high"}
+                }
+            ]
+        })
+
+        try:
+            response = client.chat.completions.create(
+                model="gpt-4o",
+                messages=chat_history,
+                max_tokens=2000,
+                temperature=0.0,
+            )
+            reply = response.choices[0].message.content
+            chat_history.append({"role": "assistant", "content": reply})
+        except Exception as e:
+            print(f"  Step {step}: LLM error: {e}")
+            continue
+
+        # Parse the action
+        try:
+            # Extract JSON from reply
+            json_start = reply.find("{")
+            json_end = reply.rfind("}") + 1
+            if json_start >= 0 and json_end > json_start:
+                action_data = json.loads(reply[json_start:json_end])
+            else:
+                print(f"  Step {step}: No JSON found in reply, skipping")
+                continue
+        except json.JSONDecodeError:
+            print(f"  Step {step}: Failed to parse action JSON")
+            continue
+
+        action = action_data.get("action", "")
+        selector = action_data.get("selector", "")
+        value = action_data.get("value", "")
+        reasoning = action_data.get("reasoning", "")
+
+        print(f"  Step {step}: {action} | {selector or value or ''} | {reasoning[:80]}")
+        actions_taken.append(f"{action}: {selector or value}")
+
+        # Execute the action
+        try:
+            if action == "done":
+                result_data["final_report"] = value
+                print(f"\n{'='*60}")
+                print("TEST REPORT")
+                print(f"{'='*60}")
+                print(value)
+                print(f"{'='*60}")
+                break
+
+            elif action == "click":
+                if selector:
+                    await page.click(selector, timeout=5000)
+                    await page.wait_for_timeout(2000)
+
+            elif action == "type":
+                if selector and value:
+                    await page.fill(selector, value)
+                    await page.wait_for_timeout(1000)
+
+            elif action == "scroll":
+                direction = value.lower() if value else "down"
+                if direction == "up":
+                    await page.evaluate("window.scrollBy(0, -500)")
+                else:
+                    await page.evaluate("window.scrollBy(0, 500)")
+                await page.wait_for_timeout(1000)
+
+            elif action == "navigate":
+                if value:
+                    await page.goto(value, wait_until="domcontentloaded", timeout=30000)
+                    await page.wait_for_timeout(3000)
+
+            elif action == "wait":
+                wait_time = int(value) if value.isdigit() else 3
+                await page.wait_for_timeout(wait_time * 1000)
+
+            # Self-healing: dismiss popups/banners
+            try:
+                for dismiss_selector in [
+                    "button:has-text('Accept')", "button:has-text('Ok')",
+                    "button:has-text('Close')", "button:has-text('Got it')",
+                    "[aria-label='Close']", ".cookie-banner button",
+                ]:
+                    btn = page.locator(dismiss_selector).first
+                    if await btn.is_visible(timeout=500):
+                        await btn.click()
+                        print(f"    -> Dismissed popup: {dismiss_selector}")
+                        break
+            except Exception:
+                pass
+
+        except Exception as e:
+            print(f"    -> Self-healing: {e}")
+            # Self-healing: wait and retry
+            await page.wait_for_timeout(2000)
+            try:
+                if action == "click" and selector:
+                    # Try JavaScript click as fallback
+                    await page.evaluate(f"document.querySelector('{selector}')?.click()")
+                    print(f"    -> Retried with JS click")
+            except Exception:
+                print(f"    -> Skipping failed action, continuing")
+
+    else:
+        # Reached max steps without "done"
+        result_data["final_report"] = "Agent reached maximum steps without completing."
+
+    elapsed = time.time() - start_time
+    result_data["duration_seconds"] = round(elapsed, 1)
+    result_data["status"] = "completed"
+    result_data["actions"] = actions_taken
+
+    print(f"\nTotal actions: {len(actions_taken)}")
+    print(f"Duration: {elapsed:.0f}s")
+
+    # Cleanup
+    await browser.close()
+    await pw.stop()
+
+    save_report(url, result_data)
+    return result_data
+
+
+# ─── Chromium Agent (browser-use) ────────────────────────────────────────────
+
+async def run_chromium_test(url: str, instructions: str, headless: bool = False,
+                            browser: str = "chromium") -> dict:
+    """Run test in Chrome/Edge/Chromium using browser-use."""
+    from browser_use import Agent, BrowserProfile
+    from browser_use.llm import ChatOpenAI
+
+    print(f"\n{'='*60}")
+    print(f"  AUTONOMOUS E2E TESTING AGENT")
+    print(f"  URL:     {url}")
+    print(f"  Browser: {browser}")
+    print(f"  Time:    {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f"{'='*60}")
+
     task = build_task(url, instructions)
 
-    # Browser config
+    channel_map = {"chrome": "chrome", "edge": "msedge", "chromium": None}
+    channel = channel_map.get(browser, None)
+
     browser_profile = BrowserProfile(
         headless=headless,
+        channel=channel,
         viewport={"width": 1470, "height": 956},
         args=[
             "--start-maximized",
@@ -181,14 +325,12 @@ async def run_test(url: str, instructions: str, headless: bool = False) -> dict:
         wait_for_network_idle_page_load_time=5.0,
     )
 
-    # LLM
     llm = ChatOpenAI(
         model="gpt-4o",
         temperature=0.0,
         api_key=os.getenv("OPENAI_API_KEY"),
     )
 
-    # Agent
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     gif_path = os.path.join(SCREENSHOT_DIR, f"test_{timestamp}.gif")
 
@@ -204,7 +346,7 @@ async def run_test(url: str, instructions: str, headless: bool = False) -> dict:
         llm_timeout=120,
     )
 
-    # Run
+    print(f"\nInstructions: {instructions[:200]}...")
     print("\nAgent starting...\n")
     start_time = time.time()
 
@@ -214,6 +356,7 @@ async def run_test(url: str, instructions: str, headless: bool = False) -> dict:
         "final_report": "",
         "actions": [],
         "gif_path": gif_path,
+        "browser": browser,
         "instructions": instructions,
     }
 
@@ -246,13 +389,23 @@ async def run_test(url: str, instructions: str, headless: bool = False) -> dict:
         result_data["error"] = str(e)
         print(f"\nAgent error after {elapsed:.0f}s: {e}")
 
-    # Save report
     save_report(url, result_data)
     return result_data
 
 
+# ─── Main Router ──────────────────────────────────────────────────────────────
+
+async def run_test(url: str, instructions: str, headless: bool = False,
+                   browser: str = "chromium") -> dict:
+    """Route to the correct agent based on browser selection."""
+    if browser == "safari":
+        return await run_safari_test(url, instructions, headless)
+    else:
+        return await run_chromium_test(url, instructions, headless, browser)
+
+
 async def interactive_mode():
-    """Interactive mode — ask user for URL and instructions."""
+    """Interactive mode."""
     print("\n" + "=" * 60)
     print("  AUTONOMOUS E2E TESTING AGENT — Interactive Mode")
     print("=" * 60)
@@ -265,22 +418,16 @@ async def interactive_mode():
     if not url.startswith("http"):
         url = "https://" + url
 
-    print("\nEnter test instructions (what should the agent do?):")
-    print("(Type your instructions, then press Enter twice to start)\n")
-
+    print("\nEnter test instructions (press Enter twice to start):\n")
     lines = []
     while True:
         line = input()
-        if line == "":
-            if lines:
-                break
+        if line == "" and lines:
+            break
         lines.append(line)
 
-    instructions = "\n".join(lines)
-    if not instructions.strip():
-        instructions = "Perform a complete E2E test of this website. Test all navigation, forms, buttons, and interactive elements."
-
-    await run_test(url, instructions)
+    instructions = "\n".join(lines) or "Perform a complete E2E test."
+    await run_test(url, instructions, browser="chromium")
 
 
 async def main():
@@ -288,11 +435,14 @@ async def main():
     parser.add_argument("--url", type=str, help="URL to test")
     parser.add_argument("--task", type=str, help="Test instructions")
     parser.add_argument("--headless", action="store_true", help="Run headless")
+    parser.add_argument("--browser", type=str, default="chromium",
+                        choices=["chromium", "chrome", "edge", "safari"],
+                        help="Browser to use (default: chromium)")
     args = parser.parse_args()
 
     if args.url:
-        instructions = args.task or "Perform a complete E2E test of this website. Test all navigation, forms, buttons, and interactive elements."
-        await run_test(args.url, instructions, args.headless)
+        instructions = args.task or "Perform a complete E2E test of this website."
+        await run_test(args.url, instructions, args.headless, args.browser)
     else:
         await interactive_mode()
 
