@@ -12,6 +12,11 @@ import queue
 import streamlit as st
 from datetime import datetime
 
+# Install Playwright browsers on first run (needed for Streamlit Cloud)
+if not os.path.exists("/tmp/.playwright_installed"):
+    subprocess.run(["playwright", "install", "chromium"], capture_output=True)
+    open("/tmp/.playwright_installed", "w").close()
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 AGENT_SCRIPT = os.path.join(BASE_DIR, "agent.py")
 REPORT_DIR = os.path.join(BASE_DIR, "reports")
@@ -87,12 +92,7 @@ tab_agent, tab_reports, tab_screenshots = st.tabs(
 with tab_agent:
 
     if IS_CLOUD:
-        st.warning("⚠️ Running tests is not available on Streamlit Cloud (no browser available). "
-                    "Please run the dashboard locally with `streamlit run dashboard.py` to execute tests.")
-        st.info("This dashboard can still display **Reports** and **Screenshots** from previous test runs.")
-        test_url = None
-    else:
-        pass
+        st.info("☁️ Running on Streamlit Cloud — tests will run in headless mode.")
 
     # URL input
     test_url = st.text_input(
@@ -132,7 +132,7 @@ with tab_agent:
 
     with col_start:
         if st.button("🚀 Run Test", type="primary", use_container_width=True,
-                      disabled=IS_CLOUD or st.session_state.agent_running or not test_url):
+                      disabled=st.session_state.agent_running or not test_url):
             st.session_state.agent_output = ""
             st.session_state.agent_running = True
             st.session_state.agent_queue = queue.Queue()
@@ -143,7 +143,7 @@ with tab_agent:
             if instructions.strip():
                 cmd.extend(["--task", instructions.strip()])
 
-            if headless:
+            if headless or IS_CLOUD:
                 cmd.append("--headless")
 
             proc = subprocess.Popen(
