@@ -1,3 +1,4 @@
-streamlit
+browser-use
+langchain-openai
 python-dotenv
-openai
+streamlit

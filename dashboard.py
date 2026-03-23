@@ -12,16 +12,10 @@ import queue
 import streamlit as st
 from datetime import datetime
 
-# Install Playwright browsers on first run (needed for Streamlit Cloud)
-if not os.path.exists("/tmp/.playwright_installed"):
-    subprocess.run(["playwright", "install", "chromium"], capture_output=True)
-    open("/tmp/.playwright_installed", "w").close()
-
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 AGENT_SCRIPT = os.path.join(BASE_DIR, "agent.py")
 REPORT_DIR = os.path.join(BASE_DIR, "reports")
 SCREENSHOT_DIR = os.path.join(BASE_DIR, "screenshots")
-IS_CLOUD = os.path.exists("/mount/src")
 
 st.set_page_config(page_title="Autonomous E2E Testing Agent", page_icon="🤖", layout="wide")
 
@@ -91,9 +85,6 @@ tab_agent, tab_reports, tab_screenshots = st.tabs(
 # --- Tab 1: Run Test ---
 with tab_agent:
 
-    if IS_CLOUD:
-        st.info("☁️ Running on Streamlit Cloud — tests will run in headless mode.")
-
     # URL input
     test_url = st.text_input(
         "🌐 URL to test",
@@ -143,7 +134,7 @@ with tab_agent:
             if instructions.strip():
                 cmd.extend(["--task", instructions.strip()])
 
-            if headless or IS_CLOUD:
+            if headless:
                 cmd.append("--headless")
 
             proc = subprocess.Popen(
@@ -231,7 +222,15 @@ with tab_screenshots:
                 fname = os.path.basename(gif)
                 mod_time = datetime.fromtimestamp(os.path.getmtime(gif)).strftime("%Y-%m-%d %H:%M")
                 st.markdown(f"**{fname}** — {mod_time}")
-                st.image(gif, use_container_width=True)
+                try:
+                    with open(gif, "rb") as f:
+                        gif_bytes = f.read()
+                    if gif_bytes:
+                        st.image(gif_bytes, use_container_width=True)
+                    else:
+                        st.warning(f"Skipped empty file: {fname}")
+                except Exception as e:
+                    st.warning(f"Could not display {fname}: {e}")
 
         if pngs:
             st.subheader("Screenshots")
