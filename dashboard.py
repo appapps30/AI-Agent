@@ -16,6 +16,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 AGENT_SCRIPT = os.path.join(BASE_DIR, "agent.py")
 REPORT_DIR = os.path.join(BASE_DIR, "reports")
 SCREENSHOT_DIR = os.path.join(BASE_DIR, "screenshots")
+IS_CLOUD = os.path.exists("/mount/src")
 
 st.set_page_config(page_title="Autonomous E2E Testing Agent", page_icon="🤖", layout="wide")
 
@@ -85,6 +86,14 @@ tab_agent, tab_reports, tab_screenshots = st.tabs(
 # --- Tab 1: Run Test ---
 with tab_agent:
 
+    if IS_CLOUD:
+        st.warning("⚠️ Running tests is not available on Streamlit Cloud (no browser available). "
+                    "Please run the dashboard locally with `streamlit run dashboard.py` to execute tests.")
+        st.info("This dashboard can still display **Reports** and **Screenshots** from previous test runs.")
+        test_url = None
+    else:
+        pass
+
     # URL input
     test_url = st.text_input(
         "🌐 URL to test",
@@ -123,7 +132,7 @@ with tab_agent:
 
     with col_start:
         if st.button("🚀 Run Test", type="primary", use_container_width=True,
-                      disabled=st.session_state.agent_running or not test_url):
+                      disabled=IS_CLOUD or st.session_state.agent_running or not test_url):
             st.session_state.agent_output = ""
             st.session_state.agent_running = True
             st.session_state.agent_queue = queue.Queue()
