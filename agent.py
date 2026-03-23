@@ -20,10 +20,12 @@ import os
 import time
 from datetime import datetime
 
-from dotenv import load_dotenv
-from openai import OpenAI
-
-load_dotenv()
+try:
+    from dotenv import load_dotenv
+    from openai import OpenAI
+    load_dotenv()
+except ImportError:
+    pass  # Dependencies not available in Streamlit Cloud
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 SCREENSHOT_DIR = os.path.join(BASE_DIR, "screenshots")
