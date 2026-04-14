@@ -1,0 +1,241 @@
+{
+  "timestamp": "2026-04-11T14:05:28.032168",
+  "platform": "https://www.appypie.com/app-builder/appmaker",
+  "app_name": "BrightPath Tools",
+  "email": "testqa.delhi21@gmail.com",
+  "total_steps": 25,
+  "successful": 24,
+  "failed": 0,
+  "stages_visited": [
+    "landing",
+    "business_name",
+    "category",
+    "color_scheme",
+    "device_select",
+    "registration",
+    "login"
+  ],
+  "final_stage": "login",
+  "log_file": "/Users/Rakesh/n8n-e2e-agent/INR-TRIAL-WITH-CC/logs/inr_trial_20260411_135546.log",
+  "actions": [
+    {
+      "step": 1,
+      "action_type": "click",
+      "description": "Initiating the app creation process by clicking the 'Create Your App' button.",
+      "selector": "a:has-text('Create Your App')",
+      "url": "https://www.appypie.com/app-builder/appmaker",
+      "stage": "landing",
+      "result": "success"
+    },
+    {
+      "step": 2,
+      "action_type": "fill",
+      "description": "entering business name",
+      "selector": "#appName",
+      "url": "https://snappy.appypie.com/app-builder/creator-software/",
+      "stage": "business_name",
+      "result": "success"
+    },
+    {
+      "step": 3,
+      "action_type": "click",
+      "description": "clicking Next",
+      "selector": "#svid",
+      "url": "https://snappy.appypie.com/app-builder/creator-software/",
+      "stage": "business_name",
+      "result": "success"
+    },
+    {
+      "step": 4,
+      "action_type": "click",
+      "description": "selecting Business category",
+      "selector": "a:has-text(\"Business >\")",
+      "url": "https://snappy.appypie.com/app-builder/creator-software/",
+      "stage": "category",
+      "result": "success"
+    },
+    {
+      "step": 5,
+      "action_type": "click",
+      "description": "selecting Deep Ocean color scheme",
+      "selector": "a:has-text(\"DEEP OCEAN\")",
+      "url": "https://snappy.appypie.com/app-builder/creator-software/",
+      "stage": "color_scheme",
+      "result": "success"
+    },
+    {
+      "step": 6,
+      "action_type": "click",
+      "description": "selecting Android device",
+      "selector": "a:has-text(\"Android\")",
+      "url": "https://snappy.appypie.com/app-builder/creator-software/",
+      "stage": "device_select",
+      "result": "success"
+    },
+    {
+      "step": 7,
+      "action_type": "auto_login_redirect",
+      "description": "Auto-clicked Login link on registration page",
+      "result": "success",
+      "stage": "registration"
+    },
+    {
+      "step": 8,
+      "action_type": "auto_login",
+      "description": "Auto-filled email + clicked LOGIN",
+      "result": "success",
+      "stage": "login"
+    },
+    {
+      "step": 9,
+      "action_type": "fill",
+      "description": "entering email in login field",
+      "selector": "#testing",
+      "url": "https://accounts.appypie.com/login?lang=en&frompage=https:%2F%2Fsnappy.appypie.com%2Findex%2Fcommon-session",
+      "stage": "login",
+      "result": "success"
+    },
+    {
+      "step": 10,
+      "action_type": "click",
+      "description": "clicking Login to reveal password field",
+      "selector": "button:has-text(\"LOGIN\")",
+      "url": "https://accounts.appypie.com/login?lang=en&frompage=https:%2F%2Fsnappy.appypie.com%2Findex%2Fcommon-session",
+      "stage": "login",
+      "result": "success"
+    },
+    {
+      "step": 11,
+      "action_type": "click",
+      "description": "clicking Login to reveal password field",
+      "selector": "button:has-text(\"LOGIN\")",
+      "url": "https://accounts.appypie.com/login?lang=en&frompage=https:%2F%2Fsnappy.appypie.com%2Findex%2Fcommon-session",
+      "stage": "login",
+      "result": "success"
+    },
+    {
+      "step": 12,
+      "action_type": "fill",
+      "description": "entering email in login field",
+      "selector": "#testing",
+      "url": "https://accounts.appypie.com/login?lang=en&frompage=https:%2F%2Fsnappy.appypie.com%2Findex%2Fcommon-session",
+      "stage": "login",
+      "result": "success"
+    },
+    {
+      "step": 13,
+      "action_type": "click",
+      "description": "clicking Login to reveal password field",
+      "selector": "button:has-text(\"LOGIN\")",
+      "url": "https://accounts.appypie.com/login?lang=en&frompage=https:%2F%2Fsnappy.appypie.com%2Findex%2Fcommon-session",
+      "stage": "login",
+      "result": "success"
+    },
+    {
+      "step": 14,
+      "action_type": "click",
+      "description": "clicking Login to reveal password field",
+      "selector": "button:has-text(\"LOGIN\")",
+      "url": "https://accounts.appypie.com/login?lang=en&frompage=https:%2F%2Fsnappy.appypie.com%2Findex%2Fcommon-session",
+      "stage": "login",
+      "result": "success"
+    },
+    {
+      "step": 15,
+      "action_type": "fill",
+      "description": "entering email in login field",
+      "selector": "#testing",
+      "url": "https://accounts.appypie.com/login?lang=en&frompage=https:%2F%2Fsnappy.appypie.com%2Findex%2Fcommon-session",
+      "stage": "login",
+      "result": "success"
+    },
+    {
+      "step": 16,
+      "action_type": "click",
+      "description": "clicking Login to reveal password field",
+      "selector": "button:has-text(\"LOGIN\")",
+      "url": "https://accounts.appypie.com/login?lang=en&frompage=https:%2F%2Fsnappy.appypie.com%2Findex%2Fcommon-session",
+      "stage": "login",
+      "result": "success"
+    },
+    {
+      "step": 17,
+      "action_type": "fill",
+      "description": "entering email in login field",
+      "selector": "#testing",
+      "url": "https://accounts.appypie.com/login?lang=en&frompage=https:%2F%2Fsnappy.appypie.com%2Findex%2Fcommon-session",
+      "stage": "login",
+      "result": "success"
+    },
+    {
+      "step": 18,
+      "action_type": "click",
+      "description": "clicking Login to reveal password field",
+      "selector": "button:has-text(\"LOGIN\")",
+      "url": "https://accounts.appypie.com/login?lang=en&frompage=https:%2F%2Fsnappy.appypie.com%2Findex%2Fcommon-session",
+      "stage": "login",
+      "result": "success"
+    },
+    {
+      "step": 19,
+      "action_type": "click",
+      "description": "clicking Login to reveal password field",
+      "selector": "button:has-text(\"LOGIN\")",
+      "url": "https://accounts.appypie.com/login?lang=en&frompage=https:%2F%2Fsnappy.appypie.com%2Findex%2Fcommon-session",
+      "stage": "login",
+      "result": "success"
+    },
+    {
+      "step": 20,
+      "action_type": "fill",
+      "description": "entering email in login field",
+      "selector": "#testing",
+      "url": "https://accounts.appypie.com/login?lang=en&frompage=https:%2F%2Fsnappy.appypie.com%2Findex%2Fcommon-session",
+      "stage": "login",
+      "result": "success"
+    },
+    {
+      "step": 21,
+      "action_type": "click",
+      "description": "clicking Login to reveal password field",
+      "selector": "button:has-text(\"LOGIN\")",
+      "url": "https://accounts.appypie.com/login?lang=en&frompage=https:%2F%2Fsnappy.appypie.com%2Findex%2Fcommon-session",
+      "stage": "login",
+      "result": "success"
+    },
+    {
+      "step": 22,
+      "action_type": "click",
+      "description": "clicking Login to reveal password field",
+      "selector": "button:has-text(\"LOGIN\")",
+      "url": "https://accounts.appypie.com/login?lang=en&frompage=https:%2F%2Fsnappy.appypie.com%2Findex%2Fcommon-session",
+      "stage": "login",
+      "result": "success"
+    },
+    {
+      "step": 23,
+      "action_type": "fill",
+      "description": "entering email in login field",
+      "selector": "#testing",
+      "url": "https://accounts.appypie.com/login?lang=en&frompage=https:%2F%2Fsnappy.appypie.com%2Findex%2Fcommon-session",
+      "stage": "login",
+      "result": "success"
+    },
+    {
+      "step": 24,
+      "action_type": "click",
+      "description": "clicking Login to reveal password field",
+      "selector": "button:has-text(\"LOGIN\")",
+      "url": "https://accounts.appypie.com/login?lang=en&frompage=https:%2F%2Fsnappy.appypie.com%2Findex%2Fcommon-session",
+      "stage": "login",
+      "result": "success"
+    },
+    {
+      "step": 25,
+      "action_type": "done",
+      "description": "Login process completed successfully with all steps executed.",
+      "result": "completed"
+    }
+  ],
+  "video": "/Users/Rakesh/n8n-e2e-agent/INR-TRIAL-WITH-CC/recordings/recording_20260411_140528.webm"
+}
