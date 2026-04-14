@@ -5,3 +5,6 @@ langchain-text-splitters>=0.3.0
 faiss-cpu>=1.8.0
 openai>=1.50.0
 tiktoken>=0.7.0
+browser-use
+python-dotenv
+streamlit
