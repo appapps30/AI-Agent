@@ -1,0 +1,712 @@
+{
+  "timestamp": "2026-04-11T18:17:35.921303",
+  "platform": "https://murlikpatel.myapparea.com",
+  "app_name": "UrbanPulse Hub",
+  "email": "rakesh@appypiellp.com",
+  "total_steps": 15,
+  "successful": 12,
+  "failed": 2,
+  "stages_visited": [
+    "login",
+    "dashboard",
+    "app_name",
+    "category",
+    "color_scheme",
+    "device_select",
+    "editor"
+  ],
+  "final_stage": "editor",
+  "log_file": "/Users/Rakesh/n8n-e2e-agent/Autonomous-QA/logs/murlikpatel_20260411_181213.log",
+  "actions": [
+    {
+      "step": 1,
+      "action_type": "navigate",
+      "description": "navigating to dedicated login page",
+      "selector": "",
+      "value": "",
+      "url": "https://murlikpatel.myapparea.com/cms/",
+      "stage": "login",
+      "result": "success"
+    },
+    {
+      "step": 2,
+      "action_type": "fill",
+      "description": "filling email field",
+      "selector": "input[name='login_username']",
+      "value": "rakesh@appypiellp.com",
+      "url": "https://murlikpatel.myapparea.com/login",
+      "stage": "login",
+      "result": "success"
+    },
+    {
+      "step": 3,
+      "action_type": "fill",
+      "description": "filling password field",
+      "selector": "input[name='login_password']",
+      "value": "Test@12345",
+      "url": "https://murlikpatel.myapparea.com/login",
+      "stage": "login",
+      "result": "success"
+    },
+    {
+      "step": 4,
+      "action_type": "click",
+      "description": "clicking Login submit button",
+      "selector": "#submitme",
+      "value": "",
+      "url": "https://murlikpatel.myapparea.com/login",
+      "stage": "login",
+      "result": "success"
+    },
+    {
+      "step": 5,
+      "action_type": "click",
+      "description": "clicking on 'Create New App' to navigate to the app creation page",
+      "selector": "a:has-text(\"Create New App\")",
+      "value": "",
+      "url": "https://murlikpatel.myapparea.com/user",
+      "stage": "dashboard",
+      "result": "failed: All click strategies failed for: a:has-text(\"Create New App\")"
+    },
+    {
+      "step": 6,
+      "action_type": "navigate",
+      "description": "navigating directly to app creator",
+      "selector": "",
+      "value": "",
+      "url": "https://murlikpatel.myapparea.com/user",
+      "stage": "dashboard",
+      "result": "success"
+    },
+    {
+      "step": 7,
+      "action_type": "fill",
+      "description": "entering app name",
+      "selector": "#appName",
+      "value": "UrbanPulse Hub",
+      "url": "https://murlikpatel.myapparea.com/appbuilder/creator-software/",
+      "stage": "app_name",
+      "result": "success"
+    },
+    {
+      "step": 8,
+      "action_type": "click",
+      "description": "clicking Next after app name is filled",
+      "selector": "a:has-text(\"Next\")",
+      "value": "",
+      "url": "https://murlikpatel.myapparea.com/appbuilder/creator-software/",
+      "stage": "app_name",
+      "result": "success"
+    },
+    {
+      "step": 9,
+      "action_type": "click",
+      "description": "Select the 'Business' category to proceed with app creation as it is listed as an available category.",
+      "selector": "a:has-text(\"Business >\")",
+      "value": "",
+      "url": "https://murlikpatel.myapparea.com/appbuilder/creator-software/",
+      "stage": "category",
+      "result": "success"
+    },
+    {
+      "step": 10,
+      "action_type": "click",
+      "description": "Select the 'Deep Ocean' color scheme to proceed to the next step",
+      "selector": "a:has-text(\"DEEP OCEAN\")",
+      "value": "",
+      "url": "https://murlikpatel.myapparea.com/appbuilder/creator-software/",
+      "stage": "color_scheme",
+      "result": "success"
+    },
+    {
+      "step": 11,
+      "action_type": "click",
+      "description": "Selecting Android device to test the app as per the stage instructions.",
+      "selector": "a:has-text(\"Android\")",
+      "value": "",
+      "url": "https://murlikpatel.myapparea.com/appbuilder/creator-software/",
+      "stage": "device_select",
+      "result": "success"
+    },
+    {
+      "step": 12,
+      "action_type": "wait",
+      "description": "waiting for editor to fully load",
+      "selector": "",
+      "value": "",
+      "url": "https://murlikpatel.myapparea.com/appmakr/creator-software/build",
+      "stage": "editor",
+      "result": "success"
+    },
+    {
+      "step": 13,
+      "action_type": "click",
+      "description": "clicking Save and Continue button",
+      "selector": "button:has-text('Save and Continue')",
+      "value": "",
+      "url": "https://murlikpatel.myapparea.com/appmakr/creator-software/build",
+      "stage": "editor",
+      "result": "failed: All click strategies failed for: button:has-text('Save and Continue')"
+    },
+    {
+      "step": 14,
+      "action_type": "click",
+      "description": "clicking Save and Continue button",
+      "selector": "button.publish-btn",
+      "value": "",
+      "url": "https://murlikpatel.myapparea.com/appmakr/creator-software/build",
+      "stage": "editor",
+      "result": "success"
+    },
+    {
+      "step": 15,
+      "action_type": "done",
+      "description": "App created and saved. Flow: Login -> Dashboard -> App Name -> Category -> Color -> Device -> Editor -> Saved",
+      "result": "completed"
+    }
+  ],
+  "appypie_search": {
+    "search_terms": [
+      "appypie",
+      "appy pie"
+    ],
+    "pages_scanned": 13,
+    "pages_with_matches": 13,
+    "total_occurrences": 98,
+    "results": [
+      {
+        "url": "https://murlikpatel.myapparea.com/cms/",
+        "count": 6,
+        "occurrences": [
+          {
+            "type": "visible_text",
+            "term": "appypie",
+            "context": "ke).\n\nCONTACT US\n\nPhone:\u00a08766262084\n\nEmail:\u00a0murli@appypiellp.com\n\nAddress:\u00a0Mayur Vihar phase-1 New Delhi 11"
+          },
+          {
+            "type": "html_src",
+            "term": "appypie",
+            "context": "\\/p\\u003E\\n\\n\\u003Cp\\u003E\\u003Cimg alt=\\u0022\\u0022 src=\\u0022https:\\/\\/images.appypie.com\\/wp-content\\/uploads\\/2020\\/09\\/15111744\\/aboutValues.jpg\\u0022 styl"
+          },
+          {
+            "type": "html_src",
+            "term": "appypie",
+            "context": "purpose (injected humour and the like).</p>\n\n<p><img alt=\"\" src=\"https://images.appypie.com/wp-content/uploads/2020/09/15111744/aboutValues.jpg\" style=\"height:1"
+          },
+          {
+            "type": "html_alt",
+            "term": "appypie",
+            "context": "\\/p\\u003E\\n\\n\\u003Cp\\u003E\\u003Cimg alt=\\u0022\\u0022 src=\\u0022https:\\/\\/images.appypie.com\\/wp-content\\/uploads\\/2020\\/09\\/15111744\\/aboutValues.jpg\\u0022 styl"
+          },
+          {
+            "type": "html_alt",
+            "term": "appypie",
+            "context": "purpose (injected humour and the like).</p>\n\n<p><img alt=\"\" src=\"https://images.appypie.com/wp-content/uploads/2020/09/15111744/aboutValues.jpg\" style=\"height:1"
+          },
+          {
+            "type": "html_class",
+            "term": "appypie",
+            "context": "rong>Phone</strong>:&nbsp;8766262084</p>\n\n<p><strong>Email</strong>:&nbsp;murli@appypiellp.com</p>\n\n<p><strong>Address</strong>:&nbsp;Mayur Vihar phase-1 New De"
+          }
+        ]
+      },
+      {
+        "url": "https://murlikpatel.myapparea.com/login",
+        "count": 2,
+        "occurrences": [
+          {
+            "type": "html_href",
+            "term": "appypie",
+            "context": "g\\:form{display:block;}</style>\n    \n<link rel=\"canonical\" href=\"https://snappy.appypie.com/login\">\n<title>Login | App Builder Murlikpatel</title><meta name=\"de"
+          },
+          {
+            "type": "html_href",
+            "term": "appypie",
+            "context": "ext/css\" rel=\"stylesheet\" href=\"https://d2wuvg8krwnvon.cloudfront.net/newui/css/appypie-en.css?v=11292186\">\n<link type=\"text/css\" rel=\"stylesheet\" href=\"https:/"
+          }
+        ]
+      },
+      {
+        "url": "https://murlikpatel.myapparea.com/user",
+        "count": 4,
+        "occurrences": [
+          {
+            "type": "html_href",
+            "term": "appypie",
+            "context": "e=\"text/css\" rel=\"stylesheet\" href=\"https://murlikpatel.myapparea.com/newui/css/appypie-en.css?v=2026-04-11-3\">\n<link type=\"text/css\" rel=\"stylesheet\" href=\"htt"
+          },
+          {
+            "type": "html_href",
+            "term": "appypie",
+            "context": "an>\n    </a>\n    <a class=\"brand display-none\">\n                    <img class=\"appypie-logo\" src=\"Murlikpatel_9133.png\" alt=\"murlikpatel\">\n            </a>"
+          },
+          {
+            "type": "html_class",
+            "term": "appypie",
+            "context": "an>\n    </a>\n    <a class=\"brand display-none\">\n                    <img class=\"appypie-logo\" src=\"Murlikpatel_9133.png\" alt=\"murlikpatel\">\n            </a>"
+          },
+          {
+            "type": "html_id",
+            "term": "appypie",
+            "context": "an>\n    </a>\n    <a class=\"brand display-none\">\n                    <img class=\"appypie-logo\" src=\"Murlikpatel_9133.png\" alt=\"murlikpatel\">\n            </a>"
+          }
+        ]
+      },
+      {
+        "url": "https://murlikpatel.myapparea.com/appbuilder/creator-software/",
+        "count": 14,
+        "occurrences": [
+          {
+            "type": "html_href",
+            "term": "appypie",
+            "context": "t>\n  <!-- js and css link end -->\n\n  <link rel=\"alternate\" href=\"https://snappy.appypie.com/appbuilder/creator-software/\" hreflang=\"x-default\">\n  <link rel=\"alt"
+          },
+          {
+            "type": "html_href",
+            "term": "appypie",
+            "context": "software/\" hreflang=\"x-default\">\n  <link rel=\"alternate\" href=\"https://ptsnappy.appypie.com/appbuilder/creator-software/\" hreflang=\"pt-br\">\n  <link rel=\"alterna"
+          },
+          {
+            "type": "html_href",
+            "term": "appypie",
+            "context": "tor-software/\" hreflang=\"pt-br\">\n  <link rel=\"alternate\" href=\"https://ptsnappy.appypie.com/appbuilder/creator-software/\" hreflang=\"pt-pt\">\n  <link rel=\"alterna"
+          },
+          {
+            "type": "html_href",
+            "term": "appypie",
+            "context": "tor-software/\" hreflang=\"pt-pt\">\n  <link rel=\"alternate\" href=\"https://frsnappy.appypie.com/appbuilder/creator-software/\" hreflang=\"fr-fr\">\n  <link rel=\"alterna"
+          },
+          {
+            "type": "html_href",
+            "term": "appypie",
+            "context": "tor-software/\" hreflang=\"fr-fr\">\n  <link rel=\"alternate\" href=\"https://frsnappy.appypie.com/appbuilder/creator-software/\" hreflang=\"fr-ca\">\n  <link rel=\"alterna"
+          },
+          {
+            "type": "html_href",
+            "term": "appypie",
+            "context": "tor-software/\" hreflang=\"fr-ca\">\n  <link rel=\"alternate\" href=\"https://arsnappy.appypie.com/appbuilder/creator-software/\" hreflang=\"ar-sa\">\n  <link rel=\"alterna"
+          },
+          {
+            "type": "html_href",
+            "term": "appypie",
+            "context": "tor-software/\" hreflang=\"ar-sa\">\n  <link rel=\"alternate\" href=\"https://arsnappy.appypie.com/appbuilder/creator-software/\" hreflang=\"ar-ae\">\n  <link rel=\"alterna"
+          },
+          {
+            "type": "html_href",
+            "term": "appypie",
+            "context": "tor-software/\" hreflang=\"ar-ae\">\n  <link rel=\"alternate\" href=\"https://arsnappy.appypie.com/appbuilder/creator-software/\" hreflang=\"ar-qa\">\n  <link rel=\"alterna"
+          },
+          {
+            "type": "html_href",
+            "term": "appypie",
+            "context": "tor-software/\" hreflang=\"ar-qa\">\n  <link rel=\"alternate\" href=\"https://essnappy.appypie.com/appbuilder/creator-software/\" hreflang=\"es-es\">\n  <link rel=\"alterna"
+          },
+          {
+            "type": "html_href",
+            "term": "appypie",
+            "context": "tor-software/\" hreflang=\"es-es\">\n  <link rel=\"alternate\" href=\"https://essnappy.appypie.com/appbuilder/creator-software/\" hreflang=\"es-co\">\n  <link rel=\"alterna"
+          }
+        ]
+      },
+      {
+        "url": "https://murlikpatel.myapparea.com/appmakr/creator-software/build",
+        "count": 11,
+        "occurrences": [
+          {
+            "type": "visible_text",
+            "term": "appypie",
+            "context": "ote\nsettings_applications\nRY\nRakesh Yadav\n\nrakesh@appypiellp.com\n\nApp Manager\nPages\nEditor\n\nPage : Home\n\nSa"
+          },
+          {
+            "type": "html_href",
+            "term": "appypie",
+            "context": "=\"text/css\" />\n -->\n<link href=\"https://d2wuvg8krwnvon.cloudfront.net/newui/css/appypie-en.css?v=11292186\" media=\"screen\" rel=\"stylesheet\" type=\"text/css\">\n<lin"
+          },
+          {
+            "type": "html_href",
+            "term": "appypie",
+            "context": "t\" type=\"text/css\">\n<link href=\"https://d2wuvg8krwnvon.cloudfront.net/newui/css/appypie-new.css?v=11292186\" media=\"screen\" rel=\"stylesheet\" type=\"text/css\">\n<li"
+          },
+          {
+            "type": "html_href",
+            "term": "appypie",
+            "context": "div class=\"flex-container\">\n\t\t\n\t\t<!-- <a href=\"#\" class=\"brand\">\n\t\t\t<img class=\"appypie-logo\" src=\"https://d2wuvg8krwnvon.cloudfront.net/newui/images/logo.svg\""
+          },
+          {
+            "type": "html_href",
+            "term": "appypie",
+            "context": "ie-logo\" src=\"https://d2wuvg8krwnvon.cloudfront.net/newui/images/logo.svg\" alt=\"appypie\">\n\t\t\t\t\t</a> -->\n\t\t \n\t\t \n        \t \n\t\t\t\t<a href=\"#\" id=\"hamBtn\" class=\"hi"
+          },
+          {
+            "type": "html_href",
+            "term": "appypie",
+            "context": "<a class=\"btn button\" href=\"mailto:murli@appypiellp.com\">Email Now!</a>\n                                <!--onClick=\"emai"
+          },
+          {
+            "type": "html_src",
+            "term": "appypie",
+            "context": "ie-logo\" src=\"https://d2wuvg8krwnvon.cloudfront.net/newui/images/logo.svg\" alt=\"appypie\">\n\t\t\t\t\t</a> -->\n\t\t \n\t\t \n        \t \n\t\t\t\t<a href=\"#\" id=\"hamBtn\" class=\"hi"
+          },
+          {
+            "type": "html_alt",
+            "term": "appypie",
+            "context": "ie-logo\" src=\"https://d2wuvg8krwnvon.cloudfront.net/newui/images/logo.svg\" alt=\"appypie\">\n\t\t\t\t\t</a> -->\n\t\t \n\t\t \n        \t \n\t\t\t\t<a href=\"#\" id=\"hamBtn\" class=\"hi"
+          },
+          {
+            "type": "html_class",
+            "term": "appypie",
+            "context": "div class=\"flex-container\">\n\t\t\n\t\t<!-- <a href=\"#\" class=\"brand\">\n\t\t\t<img class=\"appypie-logo\" src=\"https://d2wuvg8krwnvon.cloudfront.net/newui/images/logo.svg\""
+          },
+          {
+            "type": "html_class",
+            "term": "appypie",
+            "context": "ie-logo\" src=\"https://d2wuvg8krwnvon.cloudfront.net/newui/images/logo.svg\" alt=\"appypie\">\n\t\t\t\t\t</a> -->\n\t\t \n\t\t \n        \t \n\t\t\t\t<a href=\"#\" id=\"hamBtn\" class=\"hi"
+          }
+        ]
+      },
+      {
+        "url": "https://murlikpatel.myapparea.com",
+        "count": 7,
+        "occurrences": [
+          {
+            "type": "visible_text",
+            "term": "appypie",
+            "context": "ke).\n\nCONTACT US\n\nPhone:\u00a08766262084\n\nEmail:\u00a0murli@appypiellp.com\n\nAddress:\u00a0Mayur Vihar phase-1 New Delhi 11"
+          },
+          {
+            "type": "visible_text",
+            "term": "appypie",
+            "context": "New Delhi 110096\n\nPhone: 8766262084\n\nEmail: murli@appypiellp.com\n\nSEND MESSAGE\nProudly powered by Murlikpat"
+          },
+          {
+            "type": "html_src",
+            "term": "appypie",
+            "context": "\\/p\\u003E\\n\\n\\u003Cp\\u003E\\u003Cimg alt=\\u0022\\u0022 src=\\u0022https:\\/\\/images.appypie.com\\/wp-content\\/uploads\\/2020\\/09\\/15111744\\/aboutValues.jpg\\u0022 styl"
+          },
+          {
+            "type": "html_src",
+            "term": "appypie",
+            "context": "purpose (injected humour and the like).</p>\n\n<p><img alt=\"\" src=\"https://images.appypie.com/wp-content/uploads/2020/09/15111744/aboutValues.jpg\" style=\"height:1"
+          },
+          {
+            "type": "html_alt",
+            "term": "appypie",
+            "context": "\\/p\\u003E\\n\\n\\u003Cp\\u003E\\u003Cimg alt=\\u0022\\u0022 src=\\u0022https:\\/\\/images.appypie.com\\/wp-content\\/uploads\\/2020\\/09\\/15111744\\/aboutValues.jpg\\u0022 styl"
+          },
+          {
+            "type": "html_alt",
+            "term": "appypie",
+            "context": "purpose (injected humour and the like).</p>\n\n<p><img alt=\"\" src=\"https://images.appypie.com/wp-content/uploads/2020/09/15111744/aboutValues.jpg\" style=\"height:1"
+          },
+          {
+            "type": "html_class",
+            "term": "appypie",
+            "context": "rong>Phone</strong>:&nbsp;8766262084</p>\n\n<p><strong>Email</strong>:&nbsp;murli@appypiellp.com</p>\n\n<p><strong>Address</strong>:&nbsp;Mayur Vihar phase-1 New De"
+          }
+        ]
+      },
+      {
+        "url": "https://murlikpatel.myapparea.com/pricing",
+        "count": 7,
+        "occurrences": [
+          {
+            "type": "visible_text",
+            "term": "appypie",
+            "context": "ke).\n\nCONTACT US\n\nPhone:\u00a08766262084\n\nEmail:\u00a0murli@appypiellp.com\n\nAddress:\u00a0Mayur Vihar phase-1 New Delhi 11"
+          },
+          {
+            "type": "visible_text",
+            "term": "appypie",
+            "context": "New Delhi 110096\n\nPhone: 8766262084\n\nEmail: murli@appypiellp.com\n\nSEND MESSAGE\nProudly powered by Murlikpat"
+          },
+          {
+            "type": "html_src",
+            "term": "appypie",
+            "context": "\\/p\\u003E\\n\\n\\u003Cp\\u003E\\u003Cimg alt=\\u0022\\u0022 src=\\u0022https:\\/\\/images.appypie.com\\/wp-content\\/uploads\\/2020\\/09\\/15111744\\/aboutValues.jpg\\u0022 styl"
+          },
+          {
+            "type": "html_src",
+            "term": "appypie",
+            "context": "purpose (injected humour and the like).</p>\n\n<p><img alt=\"\" src=\"https://images.appypie.com/wp-content/uploads/2020/09/15111744/aboutValues.jpg\" style=\"height:1"
+          },
+          {
+            "type": "html_alt",
+            "term": "appypie",
+            "context": "\\/p\\u003E\\n\\n\\u003Cp\\u003E\\u003Cimg alt=\\u0022\\u0022 src=\\u0022https:\\/\\/images.appypie.com\\/wp-content\\/uploads\\/2020\\/09\\/15111744\\/aboutValues.jpg\\u0022 styl"
+          },
+          {
+            "type": "html_alt",
+            "term": "appypie",
+            "context": "purpose (injected humour and the like).</p>\n\n<p><img alt=\"\" src=\"https://images.appypie.com/wp-content/uploads/2020/09/15111744/aboutValues.jpg\" style=\"height:1"
+          },
+          {
+            "type": "html_class",
+            "term": "appypie",
+            "context": "rong>Phone</strong>:&nbsp;8766262084</p>\n\n<p><strong>Email</strong>:&nbsp;murli@appypiellp.com</p>\n\n<p><strong>Address</strong>:&nbsp;Mayur Vihar phase-1 New De"
+          }
+        ]
+      },
+      {
+        "url": "https://murlikpatel.myapparea.com/about",
+        "count": 7,
+        "occurrences": [
+          {
+            "type": "visible_text",
+            "term": "appypie",
+            "context": "ke).\n\nCONTACT US\n\nPhone:\u00a08766262084\n\nEmail:\u00a0murli@appypiellp.com\n\nAddress:\u00a0Mayur Vihar phase-1 New Delhi 11"
+          },
+          {
+            "type": "visible_text",
+            "term": "appypie",
+            "context": "New Delhi 110096\n\nPhone: 8766262084\n\nEmail: murli@appypiellp.com\n\nSEND MESSAGE\nProudly powered by Murlikpat"
+          },
+          {
+            "type": "html_src",
+            "term": "appypie",
+            "context": "\\/p\\u003E\\n\\n\\u003Cp\\u003E\\u003Cimg alt=\\u0022\\u0022 src=\\u0022https:\\/\\/images.appypie.com\\/wp-content\\/uploads\\/2020\\/09\\/15111744\\/aboutValues.jpg\\u0022 styl"
+          },
+          {
+            "type": "html_src",
+            "term": "appypie",
+            "context": "purpose (injected humour and the like).</p>\n\n<p><img alt=\"\" src=\"https://images.appypie.com/wp-content/uploads/2020/09/15111744/aboutValues.jpg\" style=\"height:1"
+          },
+          {
+            "type": "html_alt",
+            "term": "appypie",
+            "context": "\\/p\\u003E\\n\\n\\u003Cp\\u003E\\u003Cimg alt=\\u0022\\u0022 src=\\u0022https:\\/\\/images.appypie.com\\/wp-content\\/uploads\\/2020\\/09\\/15111744\\/aboutValues.jpg\\u0022 styl"
+          },
+          {
+            "type": "html_alt",
+            "term": "appypie",
+            "context": "purpose (injected humour and the like).</p>\n\n<p><img alt=\"\" src=\"https://images.appypie.com/wp-content/uploads/2020/09/15111744/aboutValues.jpg\" style=\"height:1"
+          },
+          {
+            "type": "html_class",
+            "term": "appypie",
+            "context": "rong>Phone</strong>:&nbsp;8766262084</p>\n\n<p><strong>Email</strong>:&nbsp;murli@appypiellp.com</p>\n\n<p><strong>Address</strong>:&nbsp;Mayur Vihar phase-1 New De"
+          }
+        ]
+      },
+      {
+        "url": "https://murlikpatel.myapparea.com/contact",
+        "count": 7,
+        "occurrences": [
+          {
+            "type": "visible_text",
+            "term": "appypie",
+            "context": "ke).\n\nCONTACT US\n\nPhone:\u00a08766262084\n\nEmail:\u00a0murli@appypiellp.com\n\nAddress:\u00a0Mayur Vihar phase-1 New Delhi 11"
+          },
+          {
+            "type": "visible_text",
+            "term": "appypie",
+            "context": "New Delhi 110096\n\nPhone: 8766262084\n\nEmail: murli@appypiellp.com\n\nSEND MESSAGE\nProudly powered by Murlikpat"
+          },
+          {
+            "type": "html_src",
+            "term": "appypie",
+            "context": "\\/p\\u003E\\n\\n\\u003Cp\\u003E\\u003Cimg alt=\\u0022\\u0022 src=\\u0022https:\\/\\/images.appypie.com\\/wp-content\\/uploads\\/2020\\/09\\/15111744\\/aboutValues.jpg\\u0022 styl"
+          },
+          {
+            "type": "html_src",
+            "term": "appypie",
+            "context": "purpose (injected humour and the like).</p>\n\n<p><img alt=\"\" src=\"https://images.appypie.com/wp-content/uploads/2020/09/15111744/aboutValues.jpg\" style=\"height:1"
+          },
+          {
+            "type": "html_alt",
+            "term": "appypie",
+            "context": "\\/p\\u003E\\n\\n\\u003Cp\\u003E\\u003Cimg alt=\\u0022\\u0022 src=\\u0022https:\\/\\/images.appypie.com\\/wp-content\\/uploads\\/2020\\/09\\/15111744\\/aboutValues.jpg\\u0022 styl"
+          },
+          {
+            "type": "html_alt",
+            "term": "appypie",
+            "context": "purpose (injected humour and the like).</p>\n\n<p><img alt=\"\" src=\"https://images.appypie.com/wp-content/uploads/2020/09/15111744/aboutValues.jpg\" style=\"height:1"
+          },
+          {
+            "type": "html_class",
+            "term": "appypie",
+            "context": "rong>Phone</strong>:&nbsp;8766262084</p>\n\n<p><strong>Email</strong>:&nbsp;murli@appypiellp.com</p>\n\n<p><strong>Address</strong>:&nbsp;Mayur Vihar phase-1 New De"
+          }
+        ]
+      },
+      {
+        "url": "https://murlikpatel.myapparea.com/support",
+        "count": 12,
+        "occurrences": [
+          {
+            "type": "html_href",
+            "term": "appypie",
+            "context": "W\">\n<meta name=\"fragment\" content=\"!\">\n\t<link rel=\"canonical\" href=\"https://www.appypie.com/support\">\n\n\t<!-- Add fabicon for reseller -->\n\t\t<link rel=\"shortcut"
+          },
+          {
+            "type": "html_href",
+            "term": "appypie",
+            "context": "e=\"text/css\" rel=\"stylesheet\" href=\"https://murlikpatel.myapparea.com/newui/css/appypie-en.css?v=11292186\">\n\t<link type=\"text/css\" rel=\"stylesheet\" href=\"https:"
+          },
+          {
+            "type": "html_href",
+            "term": "appypie",
+            "context": "<a class=\"btn button\" href=\"mailto:murli@appypiellp.com\">Email Now!</a>\n                                <!--onClick=\"emai"
+          },
+          {
+            "type": "html_src",
+            "term": "appypie",
+            "context": "/yFlx0KbOEIyuKCKRvawrhe6eHEYrQ//j\">\n           <input type=\"image\" src=\"/images/appyPie_space.png\" name=\"submit\" id=\"Submit\" alt=\"Appy Pie - The safer, easier w"
+          },
+          {
+            "type": "html_content",
+            "term": "appypie",
+            "context": "W\">\n<meta name=\"fragment\" content=\"!\">\n\t<link rel=\"canonical\" href=\"https://www.appypie.com/support\">\n\n\t<!-- Add fabicon for reseller -->\n\t\t<link rel=\"shortcut"
+          },
+          {
+            "type": "html_class",
+            "term": "appypie",
+            "context": "{{(currentUri=='/:appId')?'':'display-none'}}\">\n                    <img class=\"appypie-logo\" src=\"Murlikpatel_9133.png\" alt=\"murlikpatel\">\n            </a>"
+          },
+          {
+            "type": "html_class",
+            "term": "appypie",
+            "context": "/yFlx0KbOEIyuKCKRvawrhe6eHEYrQ//j\">\n           <input type=\"image\" src=\"/images/appyPie_space.png\" name=\"submit\" id=\"Submit\" alt=\"Appy Pie - The safer, easier w"
+          },
+          {
+            "type": "html_class",
+            "term": "appypie",
+            "context": "<a class=\"btn button\" href=\"mailto:murli@appypiellp.com\">Email Now!</a>\n                                <!--onClick=\"emai"
+          },
+          {
+            "type": "html_id",
+            "term": "appypie",
+            "context": "{{(currentUri=='/:appId')?'':'display-none'}}\">\n                    <img class=\"appypie-logo\" src=\"Murlikpatel_9133.png\" alt=\"murlikpatel\">\n            </a>"
+          },
+          {
+            "type": "html_src",
+            "term": "appy pie",
+            "context": "put type=\"image\" src=\"/images/appyPie_space.png\" name=\"submit\" id=\"Submit\" alt=\"Appy Pie - The safer, easier way to pay online!\" ng-style=\"display:none;\">"
+          }
+        ]
+      },
+      {
+        "url": "https://murlikpatel.myapparea.com/features",
+        "count": 7,
+        "occurrences": [
+          {
+            "type": "visible_text",
+            "term": "appypie",
+            "context": "ke).\n\nCONTACT US\n\nPhone:\u00a08766262084\n\nEmail:\u00a0murli@appypiellp.com\n\nAddress:\u00a0Mayur Vihar phase-1 New Delhi 11"
+          },
+          {
+            "type": "visible_text",
+            "term": "appypie",
+            "context": "New Delhi 110096\n\nPhone: 8766262084\n\nEmail: murli@appypiellp.com\n\nSEND MESSAGE\nProudly powered by Murlikpat"
+          },
+          {
+            "type": "html_src",
+            "term": "appypie",
+            "context": "\\/p\\u003E\\n\\n\\u003Cp\\u003E\\u003Cimg alt=\\u0022\\u0022 src=\\u0022https:\\/\\/images.appypie.com\\/wp-content\\/uploads\\/2020\\/09\\/15111744\\/aboutValues.jpg\\u0022 styl"
+          },
+          {
+            "type": "html_src",
+            "term": "appypie",
+            "context": "purpose (injected humour and the like).</p>\n\n<p><img alt=\"\" src=\"https://images.appypie.com/wp-content/uploads/2020/09/15111744/aboutValues.jpg\" style=\"height:1"
+          },
+          {
+            "type": "html_alt",
+            "term": "appypie",
+            "context": "\\/p\\u003E\\n\\n\\u003Cp\\u003E\\u003Cimg alt=\\u0022\\u0022 src=\\u0022https:\\/\\/images.appypie.com\\/wp-content\\/uploads\\/2020\\/09\\/15111744\\/aboutValues.jpg\\u0022 styl"
+          },
+          {
+            "type": "html_alt",
+            "term": "appypie",
+            "context": "purpose (injected humour and the like).</p>\n\n<p><img alt=\"\" src=\"https://images.appypie.com/wp-content/uploads/2020/09/15111744/aboutValues.jpg\" style=\"height:1"
+          },
+          {
+            "type": "html_class",
+            "term": "appypie",
+            "context": "rong>Phone</strong>:&nbsp;8766262084</p>\n\n<p><strong>Email</strong>:&nbsp;murli@appypiellp.com</p>\n\n<p><strong>Address</strong>:&nbsp;Mayur Vihar phase-1 New De"
+          }
+        ]
+      },
+      {
+        "url": "https://murlikpatel.myapparea.com/terms-of-use",
+        "count": 7,
+        "occurrences": [
+          {
+            "type": "visible_text",
+            "term": "appypie",
+            "context": "ke).\n\nCONTACT US\n\nPhone:\u00a08766262084\n\nEmail:\u00a0murli@appypiellp.com\n\nAddress:\u00a0Mayur Vihar phase-1 New Delhi 11"
+          },
+          {
+            "type": "visible_text",
+            "term": "appypie",
+            "context": "New Delhi 110096\n\nPhone: 8766262084\n\nEmail: murli@appypiellp.com\n\nSEND MESSAGE\nProudly powered by Murlikpat"
+          },
+          {
+            "type": "html_src",
+            "term": "appypie",
+            "context": "\\/p\\u003E\\n\\n\\u003Cp\\u003E\\u003Cimg alt=\\u0022\\u0022 src=\\u0022https:\\/\\/images.appypie.com\\/wp-content\\/uploads\\/2020\\/09\\/15111744\\/aboutValues.jpg\\u0022 styl"
+          },
+          {
+            "type": "html_src",
+            "term": "appypie",
+            "context": "purpose (injected humour and the like).</p>\n\n<p><img alt=\"\" src=\"https://images.appypie.com/wp-content/uploads/2020/09/15111744/aboutValues.jpg\" style=\"height:1"
+          },
+          {
+            "type": "html_alt",
+            "term": "appypie",
+            "context": "\\/p\\u003E\\n\\n\\u003Cp\\u003E\\u003Cimg alt=\\u0022\\u0022 src=\\u0022https:\\/\\/images.appypie.com\\/wp-content\\/uploads\\/2020\\/09\\/15111744\\/aboutValues.jpg\\u0022 styl"
+          },
+          {
+            "type": "html_alt",
+            "term": "appypie",
+            "context": "purpose (injected humour and the like).</p>\n\n<p><img alt=\"\" src=\"https://images.appypie.com/wp-content/uploads/2020/09/15111744/aboutValues.jpg\" style=\"height:1"
+          },
+          {
+            "type": "html_class",
+            "term": "appypie",
+            "context": "rong>Phone</strong>:&nbsp;8766262084</p>\n\n<p><strong>Email</strong>:&nbsp;murli@appypiellp.com</p>\n\n<p><strong>Address</strong>:&nbsp;Mayur Vihar phase-1 New De"
+          }
+        ]
+      },
+      {
+        "url": "https://murlikpatel.myapparea.com/privacy-policy",
+        "count": 7,
+        "occurrences": [
+          {
+            "type": "visible_text",
+            "term": "appypie",
+            "context": "ke).\n\nCONTACT US\n\nPhone:\u00a08766262084\n\nEmail:\u00a0murli@appypiellp.com\n\nAddress:\u00a0Mayur Vihar phase-1 New Delhi 11"
+          },
+          {
+            "type": "visible_text",
+            "term": "appypie",
+            "context": "New Delhi 110096\n\nPhone: 8766262084\n\nEmail: murli@appypiellp.com\n\nSEND MESSAGE\nProudly powered by Murlikpat"
+          },
+          {
+            "type": "html_src",
+            "term": "appypie",
+            "context": "\\/p\\u003E\\n\\n\\u003Cp\\u003E\\u003Cimg alt=\\u0022\\u0022 src=\\u0022https:\\/\\/images.appypie.com\\/wp-content\\/uploads\\/2020\\/09\\/15111744\\/aboutValues.jpg\\u0022 styl"
+          },
+          {
+            "type": "html_src",
+            "term": "appypie",
+            "context": "purpose (injected humour and the like).</p>\n\n<p><img alt=\"\" src=\"https://images.appypie.com/wp-content/uploads/2020/09/15111744/aboutValues.jpg\" style=\"height:1"
+          },
+          {
+            "type": "html_alt",
+            "term": "appypie",
+            "context": "\\/p\\u003E\\n\\n\\u003Cp\\u003E\\u003Cimg alt=\\u0022\\u0022 src=\\u0022https:\\/\\/images.appypie.com\\/wp-content\\/uploads\\/2020\\/09\\/15111744\\/aboutValues.jpg\\u0022 styl"
+          },
+          {
+            "type": "html_alt",
+            "term": "appypie",
+            "context": "purpose (injected humour and the like).</p>\n\n<p><img alt=\"\" src=\"https://images.appypie.com/wp-content/uploads/2020/09/15111744/aboutValues.jpg\" style=\"height:1"
+          },
+          {
+            "type": "html_class",
+            "term": "appypie",
+            "context": "rong>Phone</strong>:&nbsp;8766262084</p>\n\n<p><strong>Email</strong>:&nbsp;murli@appypiellp.com</p>\n\n<p><strong>Address</strong>:&nbsp;Mayur Vihar phase-1 New De"
+          }
+        ]
+      }
+    ]
+  }
+}
